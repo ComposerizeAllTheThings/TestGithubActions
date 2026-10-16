@@ -6,7 +6,7 @@ on:
     # tags: ['v*']
 
 env:
-  REGISTRY: registry.docker.io
+  REGISTRY: index.docker.io
   IMAGE_NAME: composerizeallthethings/testgithubactions
 
 jobs:
@@ -21,6 +21,16 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v5
+
+      - name: Debug Docker Hub permissions
+        env:
+          DH_USER: ${{ vars.DOCKERHUB_USERNAME }}
+          DH_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          echo "user='${DH_USER}' token length=${#DH_TOKEN}"
+          curl -s -u "$DH_USER:$DH_TOKEN" \
+            "https://auth.docker.io/token?service=registry.docker.io&scope=repository:composerizeallthethings/testgithubactions:pull,push" \
+            | python3 -c "import sys,json,base64; d=json.load(sys.stdin); print(d) if 'token' not in d else print(json.loads(base64.urlsafe_b64decode(d['token'].split('.')[1]+'===')).get('access'))"
 
       - name: Log in to Docker Hub
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
