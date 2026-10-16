@@ -16,7 +16,8 @@ on:
 
 env:
   REGISTRY: index.docker.io
-  IMAGE_NAME: ${{ vars.DOCKERHUB_USERNAME }}/testgithubactions
+  #IMAGE_NAME: ${{ vars.DOCKERHUB_USERNAME }}/testgithubactions
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   login:
