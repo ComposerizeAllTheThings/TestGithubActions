@@ -16,7 +16,6 @@ on:
 
 env:
   REGISTRY: index.docker.io
-  #IMAGE_NAME: ${{ vars.DOCKERHUB_USERNAME }}/testgithubactions
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
@@ -56,7 +55,6 @@ jobs:
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          #images: composerizeallthethings/testgithubactions
           images: ${{ env.IMAGE_NAME }}
 
       - name: Set up QEMU
@@ -81,6 +79,6 @@ jobs:
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v3
         with:
-          subject-name: index.docker.io/composerizeallthethings/testgithubactions
+          subject-name: index.docker.io/${{ env.IMAGE_NAME }}
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
