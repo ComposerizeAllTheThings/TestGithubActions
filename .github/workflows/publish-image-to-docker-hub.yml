@@ -29,8 +29,8 @@ jobs:
         uses: docker/login-action@v4
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ vars.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ vars.DOCKERHUB_USERNAME }} # Github Project > Settings > Secrets and Variables > Repository variables
+          password: ${{ secrets.DOCKERHUB_TOKEN }} # Github Project > Settings > Secrets and Variables > Repository secrets
         #continue-on-error: false
 
   push_to_registry:
