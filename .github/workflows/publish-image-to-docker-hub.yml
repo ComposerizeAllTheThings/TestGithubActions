@@ -19,6 +19,8 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
+
+  # Safe check to login before going any further
   login:
     runs-on: ubuntu-latest
     steps:
@@ -47,7 +49,7 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
-          #registry: ${{ env.REGISTRY }}
+          #registry: ${{ env.REGISTRY }} # Only necessary for other registries
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
@@ -79,6 +81,6 @@ jobs:
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v3
         with:
-          subject-name: index.docker.io/${{ env.IMAGE_NAME }}
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
