@@ -6,7 +6,7 @@ on:
     # tags: ['v*']
 
 env:
-  REGISTRY: index.docker.io
+  REGISTRY: registry.docker.io
   IMAGE_NAME: composerizeallthethings/testgithubactions
 
 jobs:
