@@ -117,4 +117,4 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           repository: ${{ env.IMAGE_NAME }}
           short-description: ${{ github.server_url }}/${{ github.repository }}
-          readme-filepath: ${{ runner.temp }}/dockerhub-description.md
+          # readme-filepath: ${{ runner.temp }}/dockerhub-description.md # Requires step "Prepare Docker Hub description"
