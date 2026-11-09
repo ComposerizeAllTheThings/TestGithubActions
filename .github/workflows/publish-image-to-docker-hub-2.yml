@@ -114,7 +114,7 @@ jobs:
         uses: peter-evans/dockerhub-description@1b9a80c056b620d92cedb9d9b5a223409c68ddfa # v5.0.0
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }} # Requires Token with Delete scope since it uses PATCH method on the repository
           repository: ${{ env.IMAGE_NAME }}
           short-description: ${{ github.server_url }}/${{ github.repository }}
           # readme-filepath: ${{ runner.temp }}/dockerhub-description.md # Requires step "Prepare Docker Hub description"
